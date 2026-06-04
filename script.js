@@ -171,20 +171,14 @@ document.addEventListener('DOMContentLoaded', () => {
     firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
   }
 
-  /* ─── CONTACT FORM — Formspree ─────────── */
-  // 🔧 SETUP: Replace 'YOUR_FORM_ID' with your Formspree endpoint.
-  // Steps: formspree.io → New Form → copy the ID (e.g. "xpwzqkjb")
-  const FORMSPREE_ID = 'YOUR_FORM_ID';
-  const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
-
+  /* ─── CONTACT FORM — Façade (activar backend después) ── */
   const form        = document.getElementById('contactForm');
   const formSuccess = document.getElementById('formSuccess');
 
   if (form) {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Basic validation
       const name    = form.querySelector('#name').value.trim();
       const email   = form.querySelector('#email').value.trim();
       const country = form.querySelector('#country').value;
@@ -195,9 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       if (!isValidEmail(email)) {
-        const emailField = form.querySelector('#email');
-        emailField.style.borderColor = '#EF4444';
-        emailField.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.12)';
+        form.querySelector('#email').style.borderColor = '#EF4444';
         return;
       }
 
@@ -206,54 +198,19 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
       btnText.textContent = 'Sending...';
 
-      // Collect form data
-      const data = {
-        name:    form.querySelector('#name').value.trim(),
-        company: form.querySelector('#company').value.trim(),
-        email:   form.querySelector('#email').value.trim(),
-        phone:   form.querySelector('#phone').value.trim(),
-        country: form.querySelector('#country').value,
-        service: form.querySelector('#service').value,
-        message: form.querySelector('#message').value.trim(),
-        _subject: `New inquiry from ${form.querySelector('#name').value.trim()} — SetUP Argentina`,
-        _replyto: form.querySelector('#email').value.trim(),
-      };
-
-      try {
-        // If Formspree is configured, use it
-        if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
-          const response = await fetch(FORMSPREE_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(data),
-          });
-
-          if (!response.ok) throw new Error('Network response was not ok');
-        }
-
-        // Show success
+      setTimeout(() => {
         formSuccess.classList.add('show');
         form.reset();
-        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-      } catch (err) {
-        // Fallback: open mailto with form data pre-filled
-        const subject = encodeURIComponent(`New inquiry — ${data.name} (${data.country})`);
-        const body = encodeURIComponent(
-          `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone}\nCountry: ${data.country}\nService: ${data.service}\n\nMessage:\n${data.message}`
-        );
-        window.location.href = `mailto:contact@setupargentina.com.ar?subject=${subject}&body=${body}`;
-      } finally {
         submitBtn.disabled = false;
         btnText.textContent = 'Book Free Consultation';
-      }
+        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 1200);
     });
 
-    // Remove error state on input
     form.querySelectorAll('input, select, textarea').forEach(field => {
       field.addEventListener('input', () => {
         field.style.borderColor = '';
-        field.style.boxShadow = '';
+        field.style.boxShadow  = '';
       });
     });
   }
