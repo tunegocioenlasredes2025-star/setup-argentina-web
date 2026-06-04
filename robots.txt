@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.setupargentina.com.ar/sitemap.xml
+
+# Disallow admin/private paths (add as needed)
+# Disallow: /admin/
