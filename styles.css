@@ -399,6 +399,25 @@ input, textarea, select { font-family: inherit; }
   max-width: 520px;
 }
 
+.hero-trust-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 28px;
+}
+.hero-trust-line span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-3);
+  font-weight: 500;
+}
+.hero-trust-line svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
 .hero-guarantee-badge {
   display: inline-flex;
   align-items: center;
