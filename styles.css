@@ -291,15 +291,19 @@ input, textarea, select { font-family: inherit; }
 .nav-toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
   gap: 5px;
-  width: 32px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   background: none; border: none;
+  padding: 0;
+  margin-right: -8px;
 }
 .nav-toggle span {
   display: block;
   height: 2px;
-  width: 100%;
+  width: 24px;
   background: var(--text-2);
   border-radius: 2px;
   transition: all var(--tr-fast);
@@ -1579,14 +1583,40 @@ input, textarea, select { font-family: inherit; }
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 1001;
   background: rgba(6,12,28,0.98);
   backdrop-filter: blur(20px);
-  padding: 100px 32px 48px;
+  padding: 88px 32px 48px;
   flex-direction: column;
   gap: 0;
 }
 .mobile-menu-overlay.open { display: flex; }
+
+.mobile-menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+}
+.mobile-menu-close span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-2);
+  border-radius: 2px;
+}
+.mobile-menu-close span:first-child { transform: translateY(1px) rotate(45deg); }
+.mobile-menu-close span:last-child  { transform: translateY(-1px) rotate(-45deg); }
 .mobile-menu-overlay .nav-links {
   flex-direction: column;
   gap: 0;
@@ -1672,6 +1702,29 @@ input, textarea, select { font-family: inherit; }
   .form-row { grid-template-columns: 1fr; }
   .global-reach { padding: 28px 20px; }
   .contact-form-wrap { padding: 24px 20px; }
+
+  /* Prevent horizontal overflow from slide animations */
+  [data-animate="fadeInLeft"],
+  [data-animate="fadeInRight"] {
+    transform: translateY(20px);
+  }
+
+  /* Nav padding */
+  .nav-container { padding: 0 20px; }
+
+  /* Hero font size smaller to avoid wrapping issues */
+  .hero-title { font-size: 2rem; }
+  .hero-subtitle { font-size: 0.95rem; }
+
+  /* Services grid fix */
+  .services-grid { grid-template-columns: 1fr; }
+
+  /* Founder layout */
+  .founder-layout { grid-template-columns: 1fr; }
+  .founder-photo-wrap { max-width: 100%; margin: 0 auto; }
+
+  /* Contact layout */
+  .contact-layout { grid-template-columns: 1fr; }
 }
 
 /* ════════════════════════════════════════

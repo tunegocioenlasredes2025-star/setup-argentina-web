@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.createElement('div');
   overlay.className = 'mobile-menu-overlay';
   overlay.innerHTML = `
+    <button class="mobile-menu-close" aria-label="Close menu">
+      <span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#process">Process</a></li>
@@ -56,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     navToggle.setAttribute('aria-expanded', 'true');
-    // Animate hamburger → X
     const spans = navToggle.querySelectorAll('span');
     spans[0].style.transform = 'translateY(7px) rotate(45deg)';
     spans[1].style.opacity   = '0';
@@ -81,9 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Close on outside click
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) closeMobileMenu();
+  // Close button inside overlay
+  overlay.querySelector('.mobile-menu-close').addEventListener('click', closeMobileMenu);
+
+  // Overlay links: smooth scroll + close menu
+  overlay.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      closeMobileMenu();
+    });
   });
 
   /* ─── SCROLL ANIMATIONS ─────────────────── */
