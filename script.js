@@ -198,13 +198,28 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
       btnText.textContent = 'Sending...';
 
+      const service  = form.querySelector('#service')?.value || '';
+      const message  = form.querySelector('#message')?.value.trim() || '';
+      const company  = form.querySelector('#company')?.value.trim() || '';
+      const phone    = form.querySelector('#phone')?.value.trim() || '';
+
+      const lines = [
+        `Hi, my name is *${name}*${company ? ` from ${company}` : ''}.`,
+        `Country: ${country}`,
+        service  ? `Service needed: ${service}` : '',
+        phone    ? `Phone: ${phone}` : '',
+        message  ? `\n${message}` : '',
+      ].filter(Boolean).join('\n');
+
+      const waNumber = '5491125637925';
+      const waUrl    = `https://wa.me/${waNumber}?text=${encodeURIComponent(lines)}`;
+
       setTimeout(() => {
-        formSuccess.classList.add('show');
         form.reset();
         submitBtn.disabled = false;
         btnText.textContent = 'Book Free Consultation';
-        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 1200);
+        window.open(waUrl, '_blank');
+      }, 800);
     });
 
     form.querySelectorAll('input, select, textarea').forEach(field => {
