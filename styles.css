@@ -1658,8 +1658,8 @@ input, textarea, select { font-family: inherit; }
   :root { --section-py: 72px; }
 
   .nav-links { display: none; }
-  .nav-toggle { display: flex; }
-  .btn-nav-cta { display: none; }
+  .nav-toggle { display: none; }
+  .btn-nav-cta { display: flex; font-size: 0.8rem; padding: 8px 14px; }
 
   .stats-grid {
     grid-template-columns: 1fr 1fr;
