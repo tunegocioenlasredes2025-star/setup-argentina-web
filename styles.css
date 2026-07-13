@@ -1711,6 +1711,9 @@ input, textarea, select { font-family: inherit; }
 
   /* Nav padding */
   .nav-container { padding: 0 20px; }
+  .logo-mark { font-size: 1.35rem; }
+  .logo-country { display: none; }
+  .btn-nav-cta { font-size: 0.75rem; padding: 7px 12px; }
 
   /* Hero font size smaller to avoid wrapping issues */
   .hero-title { font-size: 2rem; }
